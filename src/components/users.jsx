@@ -7,7 +7,7 @@ const Users = () => {
     setUsers((prevState) => prevState.filter((user) => user._id !== userId));
   };
   const renderPhrase = (number) => {
-    if (number === 0) return "Никто не тусанет с тобой сегодня =/";
+    if (number === 0) return "Никто не тусанет с тобой";
     if (number === 1) return `${number} человек тусанет с тобой сегодня`;
     if (number > 1 && number < 5)
       return `${number} человека тусанут с тобой сегодня`;
