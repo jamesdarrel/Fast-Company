@@ -1,52 +1,10 @@
-import React, { useState } from "react";
-import api from "../api";
+import React from "react";
+import User from "./user";
 
-const Users = () => {
-  const [users, setUsers] = useState(api.users.fetchAll());
-  const handleDelete = (userId) => {
-    setUsers((prevState) => prevState.filter((user) => user._id !== userId));
-  };
-  const renderPhrase = (number) => {
-    if (number === 0) return "Никто не тусанет с тобой";
-    if (number === 1) return `${number} человек тусанет с тобой сегодня`;
-    if (number > 1 && number < 5)
-      return `${number} человека тусанут с тобой сегодня`;
-    if (number >= 5) return `${number} человек тусанут с тобой сегодня`;
-  };
-  const renderStyle = (number) => {
-    return number === 0 ? "badge bg-danger" : "badge bg-primary";
-  };
-  const renderQualities = (user) => {
-    return user.qualities.map((quality) => (
-      <span key={quality._id} className={`badge bg-${quality.color} m-1`}>
-        {quality.name}
-      </span>
-    ));
-  };
-  const renderUsers = () => {
-    return users.map((user) => (
-      <tr key={user._id}>
-        <th scope="row">{user.name}</th>
-        <td>{renderQualities(user)}</td>
-        <td>{user.profession.name}</td>
-        <td>{user.completedMeetings}</td>
-        <td>{user.rate}/5</td>
-        <td>
-          <button
-            className="btn btn-danger"
-            onClick={() => {
-              handleDelete(user._id);
-            }}
-          >
-            delete
-          </button>
-        </td>
-      </tr>
-    ));
-  };
-  const renderTable = () => {
-    if (users.length)
-      return (
+const Users = ({ users, ...rest }) => {
+  return (
+    <>
+      {users.length > 0 && (
         <table className="table">
           <thead>
             <tr>
@@ -65,22 +23,19 @@ const Users = () => {
               <th scope="col">
                 <b>Оценка</b>
               </th>
+              <th scope="col">
+                <b>Избранное</b>
+              </th>
               <th scope="col"></th>
             </tr>
           </thead>
-          <tbody>{renderUsers()}</tbody>
+          <tbody>
+            {users.map((user) => (
+              <User key={user._id} user={user} {...rest} />
+            ))}
+          </tbody>
         </table>
-      );
-  };
-
-  return (
-    <>
-      <h2>
-        <span className={renderStyle(users.length)}>
-          {renderPhrase(users.length)}
-        </span>
-      </h2>
-      {renderTable()}
+      )}
     </>
   );
 };
