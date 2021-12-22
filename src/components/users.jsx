@@ -14,7 +14,7 @@ const Users = ({ users: allUsers, ...rest }) => {
     const pageSize = 2;
 
     useEffect(() => {
-        api.professions.fetchAll().then((data) => setProfession(data));
+        api.professionsObject.fetchAll().then((data) => setProfession(data));
     }, []);
 
     useEffect(() => {
