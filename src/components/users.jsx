@@ -15,13 +15,15 @@ const Users = ({ users: allUsers, ...rest }) => {
 
     useEffect(() => {
         api.professions.fetchAll().then((data) => setProfession(data));
-    }, []);
+        console.log("PROFESSIONS", professions);
+    }, [professions]);
 
     useEffect(() => {
         setCurrentPage(1);
     }, [selectedProf]);
 
     const handleProfessionSelect = (item) => {
+        console.log(item);
         setSelectedProf(item);
     };
 
@@ -30,7 +32,7 @@ const Users = ({ users: allUsers, ...rest }) => {
     };
 
     const filteredUsers = selectedProf
-        ? allUsers.filter((user) => user.profession === selectedProf)
+        ? allUsers.filter((user) => user.profession.name === selectedProf.name)
         : allUsers;
     const count = filteredUsers.length;
 
