@@ -12,6 +12,7 @@ const Users = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfession] = useState();
     const [selectedProf, setSelectedProf] = useState();
+    const [searchValue, setSearchValue] = useState("");
     const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
     const pageSize = 8;
 
@@ -58,9 +59,22 @@ const Users = () => {
     };
 
     if (users) {
-        const filteredUsers = selectedProf
-            ? users.filter((user) => user.profession.name === selectedProf.name)
-            : users;
+        let filteredUsers;
+        if (selectedProf) {
+            filteredUsers = users.filter(
+                (user) => user.profession.name === selectedProf.name
+            );
+        } else if (searchValue) {
+            filteredUsers = users.filter((user) =>
+                user.name.toLowerCase().includes(searchValue.toLowerCase())
+            );
+        } else {
+            filteredUsers = users;
+        }
+
+        // const filteredUsers = selectedProf
+        //     ? users.filter((user) => user.profession.name === selectedProf.name)
+        //     : users;
 
         const count = filteredUsers.length;
 
@@ -96,6 +110,27 @@ const Users = () => {
 
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
+                    <nav className="navbar navbar-light bg-light">
+                        <div className="container-fluid">
+                            <form className="d-flex w-100 mx-auto">
+                                <input
+                                    className="form-control me-2"
+                                    type="search"
+                                    placeholder="Search..."
+                                    onChange={(event) => {
+                                        setSearchValue(event.target.value);
+                                        setSelectedProf();
+                                    }}
+                                />
+                                {/* <button
+                                    className="btn btn-outline-success"
+                                    type="submit"
+                                >
+                                    Search
+                                </button> */}
+                            </form>
+                        </div>
+                    </nav>
                     {count > 0 && (
                         <UserTable
                             users={userCrop}
