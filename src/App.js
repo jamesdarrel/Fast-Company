@@ -4,7 +4,7 @@ import NavBar from "./components/navBar";
 import Login from "./layouts/login";
 import Main from "./layouts/main";
 import NotFound from "./components/not-found";
-import RenderContent from "./components/renderContent";
+import Users from "./layouts/users";
 
 function App() {
     return (
@@ -13,7 +13,7 @@ function App() {
             <Switch>
                 <Route path="/" exact component={Main} />
                 <Route path="/login" component={Login} />
-                <Route path="/users/:userId?" component={RenderContent} />
+                <Route path="/users/:userId?" component={Users} />
                 <Route path="/404" component={NotFound} />
                 <Redirect to="/404" />
             </Switch>

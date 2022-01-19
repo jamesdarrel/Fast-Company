@@ -2,16 +2,17 @@ import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import api from "../api";
 import QualitiesList from "./qualitiesList";
+import PropTypes from "prop-types";
 
-const RenderUser = (id) => {
+const UserPage = (userId) => {
     const history = useHistory();
     const handleGoToUsers = () => {
-        history.replace("/users");
+        history.push("/users");
     };
 
     const [user, setUser] = useState();
     useEffect(() => {
-        api.users.getById(id.id).then((user) => setUser(user));
+        api.users.getById(userId.id).then((user) => setUser(user));
     });
 
     if (user) {
@@ -20,7 +21,7 @@ const RenderUser = (id) => {
                 <h1>{user.name}</h1>
                 <h2>Профессия: {user.profession.name}</h2>
                 <QualitiesList qualities={user.qualities} />
-                <h6>completedMeetings: {user.completedMeetings}</h6>
+                <p>completedMeetings: {user.completedMeetings}</p>
                 <h2>Rate: {user.rate}</h2>
                 <button
                     onClick={() => {
@@ -34,5 +35,8 @@ const RenderUser = (id) => {
     }
     return "loading...";
 };
+UserPage.propTypes = {
+    userId: PropTypes.string.isRequired
+};
 
-export default RenderUser;
+export default UserPage;
