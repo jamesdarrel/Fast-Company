@@ -4,7 +4,7 @@ import api from "../api";
 import QualitiesList from "./qualitiesList";
 import PropTypes from "prop-types";
 
-const UserPage = (userId) => {
+const UserPage = (id) => {
     const history = useHistory();
     const handleGoToUsers = () => {
         history.push("/users");
@@ -12,7 +12,7 @@ const UserPage = (userId) => {
 
     const [user, setUser] = useState();
     useEffect(() => {
-        api.users.getById(userId.id).then((user) => setUser(user));
+        api.users.getById(id.id).then((user) => setUser(user));
     });
 
     if (user) {
