@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { paginate } from "../utils/paginate";
-import Pagination from "./pagination";
-import api from "../api";
-import GroupList from "./groupList";
-import SearchStatus from "./searchStatus";
-import UserTable from "./usersTable";
+import api from "../../../api";
+import GroupList from "../../common/groupList";
+import SearchStatus from "../../ui/searchStatus";
+import SearchUser from "../../ui/searchUser";
+import UserTable from "../../ui/usersTable";
+import { paginate } from "../../../utils/paginate";
+import Pagination from "../../common/pagination";
 import _ from "lodash";
 import PropTypes from "prop-types";
 
-const UsersList = () => {
+const UsersListPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfession] = useState();
     const [selectedProf, setSelectedProf] = useState();
@@ -110,27 +111,10 @@ const UsersList = () => {
 
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
-                    <nav className="navbar navbar-light bg-light">
-                        <div className="container-fluid">
-                            <form className="d-flex w-100 mx-auto">
-                                <input
-                                    className="form-control me-2"
-                                    type="search"
-                                    placeholder="Search..."
-                                    onChange={(event) => {
-                                        setSearchValue(event.target.value);
-                                        setSelectedProf();
-                                    }}
-                                />
-                                {/* <button
-                                    className="btn btn-outline-success"
-                                    type="submit"
-                                >
-                                    Search
-                                </button> */}
-                            </form>
-                        </div>
-                    </nav>
+                    <SearchUser
+                        setSearchValue={setSearchValue}
+                        setSelectedProf={setSelectedProf}
+                    />
                     {count > 0 && (
                         <UserTable
                             users={userCrop}
@@ -154,8 +138,8 @@ const UsersList = () => {
     }
     return "loading...";
 };
-UsersList.propTypes = {
+UsersListPage.propTypes = {
     users: PropTypes.array
 };
 
-export default UsersList;
+export default UsersListPage;
