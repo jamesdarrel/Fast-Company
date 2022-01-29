@@ -28,15 +28,14 @@ const UsersListPage = () => {
         );
     };
 
-    const handleToggleBookMark = (userId) => {
-        setUsers(
-            users.map((user) => {
-                if (user._id === userId) {
-                    return { ...user, isBookmarked: !user.isBookmarked };
-                }
-                return user;
-            })
-        );
+    const handleToggleBookMark = (id) => {
+        const newArray = users.map((user) => {
+            if (user._id === id) {
+                return { ...user, bookmark: !user.bookmark };
+            }
+            return user;
+        });
+        setUsers(newArray);
     };
 
     useEffect(() => {
@@ -63,7 +62,9 @@ const UsersListPage = () => {
         let filteredUsers;
         if (selectedProf) {
             filteredUsers = users.filter(
-                (user) => user.profession.name === selectedProf.name
+                (user) =>
+                    JSON.stringify(user.profession) ===
+                    JSON.stringify(selectedProf)
             );
         } else if (searchValue) {
             filteredUsers = users.filter((user) =>
