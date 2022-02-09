@@ -74,10 +74,6 @@ const UsersListPage = () => {
             filteredUsers = users;
         }
 
-        // const filteredUsers = selectedProf
-        //     ? users.filter((user) => user.profession.name === selectedProf.name)
-        //     : users;
-
         const count = filteredUsers.length;
 
         const sortedUsers = _.orderBy(
