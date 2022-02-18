@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { displayDate } from "../../../utils/displayDate";
-import api from "../../../api";
-
+import API from "../../../api";
 const Comment = ({
     content,
     created_at: created,
@@ -14,7 +13,7 @@ const Comment = ({
     const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
         setIsLoading(true);
-        api.users.getById(userId).then((data) => {
+        API.users.getById(userId).then((data) => {
             setUser(data);
             setIsLoading(false);
         });
@@ -24,7 +23,7 @@ const Comment = ({
         <div className="bg-light card-body  mb-3">
             <div className="row">
                 {isLoading ? (
-                    "loading..."
+                    "Loading ..."
                 ) : (
                     <div className="col">
                         <div className="d-flex flex-start ">

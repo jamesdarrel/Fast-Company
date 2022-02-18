@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../../../api";
+import API from "../../../api";
 import SelectField from "../form/selectField";
 import TextAreaField from "../form/textAreaField";
 import { validator } from "../../../utils/validator";
@@ -35,7 +35,7 @@ const AddCommentForm = ({ onSubmit }) => {
         return Object.keys(errors).length === 0;
     };
     useEffect(() => {
-        api.users.fetchAll().then(setUsers);
+        API.users.fetchAll().then(setUsers);
     }, []);
     const clearForm = () => {
         setData(initialData);

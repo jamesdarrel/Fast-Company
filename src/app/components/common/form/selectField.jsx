@@ -4,19 +4,19 @@ import PropTypes from "prop-types";
 const SelectField = ({
     label,
     value,
-    name,
     onChange,
     defaultOption,
     options,
-    error
+    error,
+    name
 }) => {
     const handleChange = ({ target }) => {
         onChange({ name: target.name, value: target.value });
     };
-
     const getInputClasses = () => {
         return "form-select" + (error ? " is-invalid" : "");
     };
+
     const optionsArray =
         !Array.isArray(options) && typeof options === "object"
             ? Object.keys(options).map((optionName) => ({
@@ -42,7 +42,7 @@ const SelectField = ({
                 </option>
                 {optionsArray &&
                     optionsArray.map((option) => (
-                        <option key={option.value} value={option.value}>
+                        <option value={option.value} key={option.value}>
                             {option.name}
                         </option>
                     ))}
@@ -51,14 +51,15 @@ const SelectField = ({
         </div>
     );
 };
+
 SelectField.propTypes = {
+    defaultOption: PropTypes.string,
     label: PropTypes.string,
     value: PropTypes.string,
-    name: PropTypes.string,
     onChange: PropTypes.func,
-    defaultOption: PropTypes.string,
+    error: PropTypes.string,
     options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-    error: PropTypes.string
+    name: PropTypes.string
 };
 
 export default SelectField;
