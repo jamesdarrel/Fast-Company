@@ -99,7 +99,7 @@ const RegisterForm = () => {
                 error={errors.password}
             />
             <SelectField
-                label="Выберите вашу профессию"
+                label="Выбери свою профессию"
                 defaultOption="Choose..."
                 options={professions}
                 name="profession"
